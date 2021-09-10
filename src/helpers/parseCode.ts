@@ -2,6 +2,7 @@ import { TwilioMessage } from './mfa';
 
 export default function parseCode(message: TwilioMessage): string | null {
 	// Add case-insenstitive (`i`) modifier to regex. (we can't lowercase the message body before matching incase some codes are alpha case-sensitive)
+	// Make sure the code is in capture group 1
 	const regex = [
 		// Bill.com + PayPal
 		/code: (\d+)/i,
@@ -33,18 +34,16 @@ export default function parseCode(message: TwilioMessage): string | null {
 		/(\d+)/,
 	];
 
-	// Attempt every regex
-	const codes = regex
-		.map((regex) => {
-			const output = message.Body.match(regex);
-			return output ? output[1] : null;
-		})
-		// filter out the ones that didn't work
-		.filter((code) => code !== null);
+	let code: string;
 
-	// Return null if none of the regexes worked
-	if (codes.length === 0) return null;
+	regex.forEach((regex) => {
+		if (code) return; // skip if a code has already been found
 
-	// Return the first "successful" regex output
-	return codes[0];
+		const output = message.Body.match(regex);
+		if (output && output[1]) {
+			code = output[1]; // first capture group
+		}
+	});
+
+	return code ? code : null;
 }
