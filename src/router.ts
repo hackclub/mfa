@@ -23,7 +23,10 @@ router.get('/ping', (req: Request, res: Response) => {
 // https://www.twilio.com/docs/messaging/guides/webhook-request
 router.post(
 	'/twilio/messaging',
-	twilio.webhook(process.env.TWILIO_AUTH_TOKEN, {}), // This middleware verifies that the request is from Twilio
+	twilio.webhook(process.env.TWILIO_AUTH_TOKEN, {
+		// This middleware verifies that the request is from Twilio
+		url: 'https://mfa.hackclub.com',
+	}),
 	(req: Request, res: Response) => {
 		// Don't reply to incoming sms message
 		res.send(TWILIO_NO_REPLY);
