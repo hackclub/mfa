@@ -29,7 +29,7 @@ export default function sendMfaMessage(
 				type: 'section',
 				text: {
 					type: 'mrkdwn',
-					text: quote(message), // The `>` will make the message quoted
+					text: quote(message),
 				},
 			},
 			{
