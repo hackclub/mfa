@@ -29,7 +29,7 @@ export default function sendMfaMessage(
 				type: 'section',
 				text: {
 					type: 'mrkdwn',
-					text: `> ${message}`, // The `>` will make the message quoted
+					text: quote(message), // The `>` will make the message quoted
 				},
 			},
 			{
@@ -79,4 +79,9 @@ function generateMeta(
 			text: `*${title}:* ${value}`,
 		};
 	}
+}
+
+const QUOTE_PREFIX = "> ";
+function quote(text: string) {
+	return QUOTE_PREFIX + text.split("\n").join(`\n${QUOTE_PREFIX}`);
 }
