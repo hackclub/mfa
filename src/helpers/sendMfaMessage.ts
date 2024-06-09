@@ -14,7 +14,7 @@ export default function sendMfaMessage(
 ) {
 	slack.client.chat.postMessage({
 		channel,
-		text: `[${code}]: ${message}`,
+		text: `[${code}] ${message}`,
 		blocks: [
 			code !== null
 				? {
