@@ -33,34 +33,41 @@ export default function sendMfaMessage(
 				},
 			},
 			{
-				type: 'section',
-				fields: [
-					{
-						type: 'mrkdwn',
-						text: `*From:*\n${from}`,
-					},
-					{
-						type: 'mrkdwn',
-						text: `*To:*\n${to}`,
-					},
-				],
-			},
-			{
 				type: 'context',
-				elements: generateMeta(messageSid, country, state, city, zip),
+				elements: generateMeta({
+					messageSid,
+					from,
+					to,
+					country,
+					state,
+					city,
+					zip,
+				}),
 			},
 		].filter((block) => block), // remove the possible 'undefined' block
 	});
 }
 
-function generateMeta(
-	messageSid: string,
-	country?: string,
-	state?: string,
-	city?: string,
-	zip?: string
-) {
+function generateMeta({
+	messageSid,
+	to,
+	from,
+	country,
+	state,
+	city,
+	zip,
+}: {
+	messageSid: string;
+	from: string;
+	to: string;
+	country?: string;
+	state?: string;
+	city?: string;
+	zip?: string;
+}) {
 	const meta = [
+		singleMeta('From', from),
+		singleMeta('To', to),
 		singleMeta('Country', country),
 		singleMeta('State', state),
 		singleMeta('City', city),
@@ -81,7 +88,7 @@ function generateMeta(
 	}
 }
 
-const QUOTE_PREFIX = "> ";
+const QUOTE_PREFIX = '> ';
 function quote(text: string) {
-	return QUOTE_PREFIX + text.split("\n").join(`\n${QUOTE_PREFIX}`);
+	return QUOTE_PREFIX + text.split('\n').join(`\n${QUOTE_PREFIX}`);
 }
