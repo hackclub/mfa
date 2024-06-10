@@ -27,12 +27,11 @@ router.post(
 	// 	// This middleware verifies that the request is from Twilio
 	// 	url: 'https://mfa.hackclub.com',
 	// }),
-	(req: Request, res: Response) => {
+	async (req: Request, res: Response) => {
 		// Don't reply to incoming sms message
 		res.send(TWILIO_NO_REPLY);
 
-		console.log(req.body);
-		handleTwilioMessage(req.body);
+		await handleTwilioMessage(req.body);
 	}
 );
 

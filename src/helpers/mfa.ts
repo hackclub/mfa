@@ -1,21 +1,31 @@
-import sendMfaMessage from './sendMfaMessage';
+import sendSlackMessage from './sendSlackMessage';
 import parseCode from './parseCode';
+import prisma from '../utils/prisma';
 
-export function handleTwilioMessage(message: TwilioMessage) {
-	const code = parseCode(message);
+export async function handleTwilioMessage(message: TwilioMessage) {
+	const twilioMessage = await prisma.twilioMessage.create({
+		data: {
+			raw: message,
+			messageSid: message.MessageSid,
+			to: message.To,
+			from: message.From,
+			body: message.Body,
+		},
+	});
+	console.log(twilioMessage);
 
-	sendMfaMessage(
-		process.env.SLACK_MFA_CHANNEL_ID,
-		message.MessageSid,
-		message.From,
-		message.To,
-		message.Body,
-		code,
-		message.FromCountry,
-		message.FromState,
-		message.FromCity,
-		message.FromZip
-	);
+	const passcode = await prisma.passcode.create({
+		data: {
+			code: parseCode(message),
+			twilioMessageId: twilioMessage.id,
+		},
+		include: {
+			twilioMessage: true,
+		},
+	});
+	console.log(passcode);
+
+	await sendSlackMessage(passcode);
 }
 
 export type TwilioMessage = {
