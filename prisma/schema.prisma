@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TwilioMessage {
+  id         Int       @id @default(autoincrement())
+  raw        Json
+  messageSid String
+  from       String
+  to         String
+  body       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  passcode   Passcode?
+}
+
+model Passcode {
+  id              Int           @id @default(autoincrement())
+  code            String?
+  twilioMessage   TwilioMessage @relation(fields: [twilioMessageId], references: [id])
+  twilioMessageId Int           @unique
+  slackMessage    SlackMessage?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model SlackMessage {
+  id         Int      @id @default(autoincrement())
+  channel    String
+  ts         String
+  passcode   Passcode @relation(fields: [passcodeId], references: [id])
+  passcodeId Int      @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
