@@ -40,6 +40,11 @@
   resolved "https://registry.yarnpkg.com/@garyhtou/prettier-config/-/prettier-config-1.0.1.tgz#3dc69504e9274ff0a84a155ef56d6552cdbb524a"
   integrity sha512-URBdF+iGToDysaAGMGNCUPwu3ArOaGcIAgJ3RoPr3UFETt0/kT+kJdpj6OOWGT08GhU3Xmcm4ocsNFQrej0hSw==
 
+"@prisma/client@5.15.0":
+  version "5.15.0"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-5.15.0.tgz#a9443ace9b8a8d57aff70647168e95f2f55c5dc9"
+  integrity sha512-wPTeTjbd2Q0abOeffN7zCDCbkp9C9cF+e9HPiI64lmpehyq2TepgXE+sY7FXr7Rhbb21prLMnhXX27/E11V09w==
+
 "@slack/bolt@^3.8.1":
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/@slack/bolt/-/bolt-3.8.1.tgz#c593e3bde38cc2a9a3c79f9a1b56247900628c1f"
