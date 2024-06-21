@@ -100,7 +100,7 @@ function buildMeta({
 	}
 }
 
-const QUOTE_PREFIX = '> ';
+const QUOTE_PREFIX = '>';
 function quote(text: string) {
 	return QUOTE_PREFIX + text.split('\n').join(`\n${QUOTE_PREFIX}`);
 }
