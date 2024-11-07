@@ -27,6 +27,9 @@ export default function parseCode(message: TwilioMessage): string | null {
 		// Authy
 		/manually enter: (\d+)/i,
 
+		// URLs. This is below the codes since we want to prioritize codes over URLs
+		/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b[-a-zA-Z0-9()@:%_\+.~#?&//=]*)/i,
+
 		// last ditch resorts
 		/code:? ?(\d+)/i,
 		/(\d+) is your/i,
