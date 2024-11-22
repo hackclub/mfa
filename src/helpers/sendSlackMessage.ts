@@ -53,6 +53,21 @@ function buildSlackMessage({
 		},
 	});
 
+	blocks.push({
+		type: "actions",
+		elements: [
+			{
+				type: "button",
+				text: {
+					type: "plain_text",
+					text: "I requested this code",
+					emoji: true
+				},
+				value: "requested"
+			}
+		]
+	});
+
 	// Context footer
 	blocks.push({
 		type: 'context',
