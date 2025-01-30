@@ -3,6 +3,7 @@ dotenv.config(); // Load envrionment variables from .env file
 
 import express from 'express';
 import helmet from 'helmet';
+import morgan from 'morgan';
 
 import router from './router';
 import errorHandlers from './helpers/errorHandlers';
@@ -10,6 +11,9 @@ import errorHandlers from './helpers/errorHandlers';
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+// Log all requests
+router.use(morgan('short'));
 
 // Secure app with HTTP headers
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
