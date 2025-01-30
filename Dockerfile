@@ -13,6 +13,13 @@ FROM node:${NODE_VERSION}-alpine
 # Set working directory for all build stages.
 WORKDIR /usr/src/app
 
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      openssl
+
+# Use production node environment by default.
+ENV NODE_ENV=production
+
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.yarn to speed up subsequent builds.
 # Leverage bind mounts to package.json and yarn.lock to avoid having to copy them
@@ -34,9 +41,6 @@ COPY . .
 
 # Run the build script.
 RUN yarn run build
-
-# Use production node environment by default.
-ENV NODE_ENV=production
 
 # Run the application as a non-root user.
 USER node
