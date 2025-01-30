@@ -13,9 +13,7 @@ FROM node:${NODE_VERSION}-alpine
 # Set working directory for all build stages.
 WORKDIR /usr/src/app
 
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y \
-      openssl
+RUN apk add --no-cache openssl
 
 # Use production node environment by default.
 ENV NODE_ENV=production
