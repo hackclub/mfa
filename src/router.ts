@@ -14,6 +14,11 @@ router.use('/slack/events', slackReceiver.router);
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
+// Home page
+router.get('/', (req: Request, res: Response) => {
+	res.redirect('https://github.com/hackclub/mfa');
+});
+
 // Ping Pong (test endpoint)
 router.get('/ping', (req: Request, res: Response) => {
 	res.send('pong! 🏓');
