@@ -4,7 +4,7 @@
 	"description": "MFA system for shared accounts",
 	"main": "dist/index.js",
 	"scripts": {
-		"start": "yarn build && ts-node .",
+		"start": "ts-node .",
 		"build": "rimraf ./dist && npx prisma generate && tsc",
 		"dev": "ts-node-dev --respawn --pretty --transpile-only src/index.ts",
 		"lint": "tslint -c tslint.json -p tsconfig.json --fix",
