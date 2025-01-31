@@ -2,6 +2,7 @@ import express, { Router, Request, Response } from 'express';
 import twilio from 'twilio';
 import { receiver as slackReceiver } from './utils/slack';
 import { handleTwilioMessage } from './helpers/mfa';
+import sourceCommit from './helpers/sourceCommit';
 
 const TWILIO_NO_REPLY = '<Response></Response>';
 
@@ -21,8 +22,15 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 // Ping Pong (test endpoint)
-router.get('/ping', (req: Request, res: Response) => {
-	res.send('pong! 🏓');
+router.get('/ping', async (req: Request, res: Response) => {
+	let body = 'pong! 🏓';
+
+	const hash = await sourceCommit();
+	if (hash) {
+		body += `\n\nBuild ${hash.slice(0, 7)}`;
+	}
+
+	res.send(body);
 });
 
 // Receive incoming SMS from Twilio
