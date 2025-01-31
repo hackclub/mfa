@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config(); // Load envrionment variables from .env file
+dotenv.config(); // Load environment variables from .env file
 
 import express from 'express';
 import helmet from 'helmet';
