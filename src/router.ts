@@ -10,7 +10,8 @@ const router: Router = express.Router();
 // Slack Bolt.js (mount before body-parser)
 router.use('/slack/events', slackReceiver.router);
 
-// Express body-parser. These middleware MUST be before Slack Bolt. (Bolt only takes raw requests)
+// Express body-parser. These parser middlewares MUST be after Slack Bolt.
+// (Bolt only takes raw requests)
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
