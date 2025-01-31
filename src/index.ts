@@ -3,7 +3,7 @@ dotenv.config(); // Load envrionment variables from .env file
 
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
+var morgan = require('morgan'); // must be required otherwise tsc complains
 
 import router from './router';
 import errorHandlers from './helpers/errorHandlers';
