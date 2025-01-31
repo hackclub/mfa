@@ -4,31 +4,18 @@
 # For more help, visit the .dockerignore file reference guide at
 # https://docs.docker.com/engine/reference/builder/#dockerignore-file
 
-**/.classpath
 **/.dockerignore
 **/.env
 **/.git
 **/.gitignore
 **/.project
 **/.settings
-**/.toolstarget
-**/.vs
 **/.vscode
-**/.next
 **/.cache
-**/*.*proj.user
-**/*.dbmdl
-**/*.jfm
-**/charts
 **/docker-compose*
-**/compose*
 **/Dockerfile*
 **/node_modules
 **/npm-debug.log
-**/obj
-**/secrets.dev.yaml
-**/values.dev.yaml
-**/build
 **/dist
 LICENSE
 README.md
